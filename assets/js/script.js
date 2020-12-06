@@ -20,7 +20,7 @@ $(document).ready(function() {
             var a = $("<div>");
             var name = $("<span>");
             // Adding a class, attribute and text
-            a.addClass("city d-block bg-secondary p-2");
+            a.addClass("city d-block border p-2");
             a.attr("data-name", cityName[i]);
             name.addClass("city-text")
             name.text(cityName[i]);
@@ -41,7 +41,7 @@ $(document).ready(function() {
             url: queryURL,
             method: "GET"
         }).then(function(response){
-            console.log(response);
+            console.log(response);              //FOR TESTING
         });
         // return queryURL + $.param(queryParams);
     }
@@ -57,6 +57,14 @@ $(document).ready(function() {
     $("#add-city").on("click", function(event) {
         event.preventDefault();
         let city = $("input").val().trim();
+        //TO DO: Check for spelling
+        console.log(city)
+        if(city === "" ){
+            $(function () {
+                $('#error-modal').modal("toggle")
+             });
+        };
+
         cityName.push(city);
         localStorage.setItem('cityNameList', JSON.stringify(cityName));
         showAll();
@@ -70,7 +78,7 @@ $(document).ready(function() {
     $(document).on("click", ".city", function(event) {
         event.preventDefault();
         let city = $(this).data('name');
-        console.log(city)
+        console.log(city)                   //FOR TESTING
         buildQueryURL(city);                       
         showAll();
     });
