@@ -19,38 +19,38 @@
   </head>
 
   <body>
-    <header class="jumbotron bg-dark text-white text-center py-2">
+    <header class="jumbotron bg-dark text-white text-center py-2 mb-0">
       <h1 class="pb-2 font-weight-bold">Weather Dashboard</h1>
     </header>
-    <div class="container">
+    <div class="container m-0">
         <div class="row">
             <!-- sidebar navigation -->
-            <nav class="bg-light col-4">
+            <nav class="bg-light col-4 pt-2">
                 <div class="d-flex flex-column px-0 col-12">
                     <h6>Search for a City:</h6>
                     <form class="form-inline">                
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn bg-primary text-white my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+                        <button class="btn bg-primary text-white my-2 my-sm-0" id="add-city" type="submit" ><i class="fas fa-search"></i></button>
                     </form>
                 </div>
                 <form class="search-history d-flex flex-column my-2 px-0 col-12">
-                    <div class="d-block bg-secondary p-2" type="button">City 1</div>
-                    <div class="d-block bg-secondary p-2" type="button">City 2</div>                
+                    <!--<div class="city d-block bg-secondary p-2" data-name="City 1"><span>city 1</span></div> -->               
                 </form>
             </nav>
         
-            <div class="col-8">
-                <div class="card bg-light text-dark p-2 rounded">
-                    <div id="current-weather">
+            <div class="col-8 pt-4">
+                <!-- Current Weather box-->
+                <div class="current card bg-light text-dark p-2 rounded">
+                    <div class="card-body">
                         <h4 id="current-city">City Name <span id="date">(Date)</span> <span id="current-icon"></span></h4>
                         <p class="text">Temperature: <span id="current-temp">90F</span></p>
                         <p>Humidity: <span id="current-humi">41%</span></p>
                         <p>Wind Speed: <span id="current-wind">4MPH</span></p>
-                        <p>UV Index: <span id="current-uv">9.2</span></p>
+                        <p>UV Index: <span class="bg-danger text-white p-2" id="current-uv">9.2</span></p>
                     </div>
                 </div>
-           
-                <div class="forecast">                
+                <!-- Forecast Weather box-->
+                <div class="forecast mt-2">                
                     <h4>5-Day Forcast:</h2>
                     <div class="row px-2" id="5-day">                
                         <div class="card bg-primary text-white col-2 mx-2 px-1">
