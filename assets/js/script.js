@@ -57,20 +57,19 @@ $(document).ready(function() {
     $("#add-city").on("click", function(event) {
         event.preventDefault();
         let city = $("input").val().trim();
+        
         //TO DO: Check for spelling
-        console.log(city)
-        if(city === "" ){
-            $(function () {
-                $('#error-modal').modal("toggle")
-             });
-        };
-
-        cityName.push(city);
-        localStorage.setItem('cityNameList', JSON.stringify(cityName));
-        showAll();
-        // calling function to build element for each city
-        cityHistory();
-        $("input").val("")
+        
+        if(city === "" ){            
+            $('#error-modal').modal("toggle");           
+        } else {
+            cityName.push(city);
+            localStorage.setItem('cityNameList', JSON.stringify(cityName));
+            showAll();
+            // calling function to build element for each city
+            cityHistory();
+            $("input").val("")
+        }
     });
 
 
