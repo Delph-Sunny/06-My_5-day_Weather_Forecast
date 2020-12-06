@@ -36,5 +36,5 @@ Icons made by Freepik from [www.flaticon.com](https://www.flaticon.com/)
 Copyright (c) 2020 DT. Everyone is permitted to use, copy, and modify verbatim copies of this document.
 
 ---
-[link]: https://delph-sunny.github.io/06-My_5days_Weather_Forecast
-[OpenWeather API]: https://openweathermap.org/api
+[link]: https://delph-sunny.github.io/06-My_5-day_Weather_Forecast/
+[API]: https://openweathermap.org/api
