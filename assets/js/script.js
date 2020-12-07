@@ -43,7 +43,7 @@ $(document).ready(function() {
             url: queryURL,
             method: "GET"
         }).then(function(response){
-         //  console.log(response);       //FOR TESTING
+          console.log(response);       //FOR TESTING
            currentObj = response;             
            displayCurrent();
            displayUV();        
@@ -112,7 +112,7 @@ $(document).ready(function() {
         <div class="card-body px-0">
             <h5 class="card-title" index="${nb}"></h5>
             <p class="icon" index="${nb}"></p>
-            <p class="card-text">Temp: <span class="temp" index="${nb}"></span>F</p>
+            <p class="card-text">Temp: <span class="temp" index="${nb}"></span>&#176F</p>
             <p class="card-text">Humidity: <span class="humi" index="${nb}"></span>%</p>
         </div>`)
         console.log("hrInterval " + hrInterval)
