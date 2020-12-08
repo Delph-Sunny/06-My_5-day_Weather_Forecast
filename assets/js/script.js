@@ -37,24 +37,23 @@ $(document).ready(function() {
         }
     }
 
-    /*** Calling current weather API and getting the information */
+    /*** Calling current weather API and getting the information ***/
     function getQueryURL(city) {
         var queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`; 
    
-        $(".current").empty(); // Empty previous previsions
+        $(".current").empty(); // Empty previous weather
         // Getting the current weather from API
         $.ajax({
             url: queryURL,
             method: "GET"
         }).then(function(response){
-  //        console.log(response);       //FOR TESTING
            currentObj = response;             
            displayCurrent();
            displayUV();        
         });      
     }
 
-    /*** Calling 5-day API and getting the information */
+    /*** Calling 5-day API and getting the information ***/
     function getQueryURL5(city) {
         var queryURL5 = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=${apiKey}`;
         
@@ -66,7 +65,6 @@ $(document).ready(function() {
             method: "GET"
         }).then(function(response){
             forecastObj = response; 
-          //  console.log(forecastObj);       // FOR TESTING
             hrInterval = 0;
             // Building the 5-day cards           
             for (let i = 1; i < 6; i++) {           
@@ -75,6 +73,7 @@ $(document).ready(function() {
         });
     }
 
+    /*** Populate current weather ***/
     function displayCurrent(){
         var currentDate = moment().format("L");                
         // Create main element
@@ -92,7 +91,8 @@ $(document).ready(function() {
         $("#current-humi").text(currentObj.main.humidity);
         $("#current-wind").text(currentObj.wind.speed);
     }
-     
+    
+    /*** Populate UX data and color background ***/
     function displayUV(){
         var queryURLuv = `https://api.openweathermap.org/data/2.5/uvi?lat=${currentObj.coord.lat}&lon=${currentObj.coord.lon}&appid=${apiKey}`;
         var uvIndex;
@@ -101,7 +101,6 @@ $(document).ready(function() {
             url: queryURLuv,
             method: "GET"
         }).then(function(response){
-          //  console.log(response);          //FOR TESTING
             uvIndex = response.value
             $("#current-uv").text(uvIndex);
             // Change the color based on uvIndex severity
@@ -114,6 +113,7 @@ $(document).ready(function() {
         });    
     }
 
+    /*** Populate 5-day weather ***/
     function displayForecast(nb){
         var date = moment().add(nb, 'day').format("L");     // get the date for each day                            
         // Create main element  
@@ -171,7 +171,7 @@ $(document).ready(function() {
             checkCode = response.cod; 
             console.log(checkCode);         
         });
-        if (city !== "" || checkCode === 200) {
+        if (city !== "" || checkCode === 200) {   // TO DO: Add a Stop duplicate entries
             cityName.push(city);
             localStorage.setItem('cityNameList', JSON.stringify(cityName));
             getQueryURL(city);
