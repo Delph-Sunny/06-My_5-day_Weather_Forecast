@@ -58,6 +58,7 @@
     to { transform: rotate(360deg); }
 }
 
-  .hidden {
+
+.hidden {
     display: none;
-  }
+}

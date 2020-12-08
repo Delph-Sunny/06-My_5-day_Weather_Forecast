@@ -41,12 +41,13 @@ $(document).ready(function() {
     function getQueryURL(city) {
         var queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`; 
    
+        $(".current").empty(); // Empty previous previsions
         // Getting the current weather from API
         $.ajax({
             url: queryURL,
             method: "GET"
         }).then(function(response){
-          console.log(response);       //FOR TESTING
+  //        console.log(response);       //FOR TESTING
            currentObj = response;             
            displayCurrent();
            displayUV();        
@@ -65,7 +66,7 @@ $(document).ready(function() {
             method: "GET"
         }).then(function(response){
             forecastObj = response; 
-            console.log(forecastObj);       // FOR TESTING
+          //  console.log(forecastObj);       // FOR TESTING
             hrInterval = 0;
             // Building the 5-day cards           
             for (let i = 1; i < 6; i++) {           
@@ -159,12 +160,18 @@ $(document).ready(function() {
     $("#search-city").on("click", function(event) {
         event.preventDefault();
         let city = $("input").val().trim();
+        let checkCode = 0;
         
-        //TO DO: Check for spelling
-        
-        if(city === "" ){            
-            $('#error-modal').modal("toggle");           
-        } else {
+        //Check for spelling and return error modal if bad
+        var queryURL5 = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=${apiKey}`;
+        $.ajax({
+            url: queryURL5,
+            method: "GET"
+        }).then(function(response){
+            checkCode = response.cod; 
+            console.log(checkCode);         
+        });
+        if (city !== "" || checkCode === 200) {
             cityName.push(city);
             localStorage.setItem('cityNameList', JSON.stringify(cityName));
             getQueryURL(city);
@@ -173,7 +180,7 @@ $(document).ready(function() {
             // calling function to build element for each city
             cityHistory();
             $("input").val("")
-        }
+        } else { $('#error-modal').modal("toggle");  }                                              
     });
 
 
