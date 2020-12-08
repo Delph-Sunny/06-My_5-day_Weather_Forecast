@@ -3,6 +3,7 @@ $(document).ready(function() {
     var cityName = JSON.parse(localStorage.getItem("cityNameList")) || [];
     var currentObj, forecastObj = {};
     var hrInterval; 
+    var city;
 
     $("#details").removeClass("hidden");
     $("#loader").addClass("hidden");
@@ -159,28 +160,36 @@ $(document).ready(function() {
     // Storing searched item
     $("#search-city").on("click", function(event) {
         event.preventDefault();
-        let city = $("input").val().trim();
+        let userCity = $("input").val().trim();
         let checkCode = 0;
         
-        //Check for spelling and return error modal if bad
-        var queryURL5 = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=${apiKey}`;
-        $.ajax({
-            url: queryURL5,
-            method: "GET"
-        }).then(function(response){
-            checkCode = response.cod; 
-            console.log(checkCode);         
-        });
-        if (city !== "" || checkCode === 200) {   // TO DO: Add a Stop duplicate entries
-            cityName.push(city);
-            localStorage.setItem('cityNameList', JSON.stringify(cityName));
-            getQueryURL(city);
-            getQueryURL5(city); 
-            showAll();
-            // calling function to build element for each city
-            cityHistory();
-            $("input").val("")
-        } else { $('#error-modal').modal("toggle");  }                                              
+      //  console.log(checkCode);  // FOR TESTING
+        if (userCity === "") { 
+            $('#error-modal').modal("toggle");  
+        } else {
+            //Check for spelling and return error modal if bad
+            var queryURL5 = `https://api.openweathermap.org/data/2.5/forecast?q=${userCity}&units=imperial&appid=${apiKey}`;
+            $.ajax({
+                url: queryURL5,
+                method: "GET"
+            }).then(function(response){
+                checkCode = response.cod; 
+                console.log(checkCode);   // FOR TESTING
+                console.log(response);
+              var city = response.city.name;
+                console.log(city); 
+                if (checkCode == 200) {   // TO FIX: NOT WORKING + Check for duplicates
+                    cityName.push(city);                    // TO FIX: Push correct spelling only
+                    localStorage.setItem('cityNameList', JSON.stringify(cityName));
+                    getQueryURL(city);
+                    getQueryURL5(city); 
+                    showAll();
+                    // calling function to build element for each city
+                    cityHistory();
+                    $("input").val("");
+                } else { $('#error-modal').modal("toggle");  }   
+            });
+        };                                           
     });
 
 
