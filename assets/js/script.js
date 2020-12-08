@@ -63,7 +63,7 @@ $(document).ready(function() {
         }).then(function(response){
             forecastObj = response; 
             console.log(forecastObj)        //FOR TESTING
-            hrInterval = 1;           
+            hrInterval = 0;           
             for (let i = 1; i < 6; i++) {           
                 displayForecast(i);
                 console.log(i)
@@ -75,7 +75,8 @@ $(document).ready(function() {
         var currentDate = moment().format("L");                
             
        $("#current-city").text(`${currentObj.name} (${currentDate}) `);
-       $("#current-city").append($(`<img src= "http://openweathermap.org/img/wn/${currentObj.weather[0].icon}@2x.png"/> `));           
+       $("#current-city").append($(`<img src= "http://openweathermap.org/img/wn/${currentObj.weather[0].icon}@2x.png" 
+            alt="${currentObj.weather[0].description}"/>` ));           
        $("#current-temp").text(currentObj.main.temp);
        $("#current-humi").text(currentObj.main.humidity);
        $("#current-wind").text(currentObj.wind.speed);
@@ -106,7 +107,7 @@ $(document).ready(function() {
 
     function displayForecast(nb){
         var date = moment().add(nb, 'day').format("L"); 
-        hrInterval += 7;                                 // TO FIX: REVIEW METHOD 
+        hrInterval = (nb - 1) *8 + 4;                                 // TO FIX: REVIEW METHOD 
         // Create main element  
         $("#5-day").append(`<div class="card bg-primary text-white col-2 mx-2 px-1">
         <div class="card-body px-0">
@@ -120,7 +121,8 @@ $(document).ready(function() {
         var iconcode = forecastObj.list[hrInterval]
         console.log(iconcode)                 //FOR TESTING
         $(`.card-title:eq(${nb-1})`).text(date);       
-        $(`.icon:eq(${nb-1})`).append($(`<img src= "http://openweathermap.org/img/wn/${iconcode.weather[0].icon}.png" style="height: 60px; width: 60px"/>`));           
+        $(`.icon:eq(${nb-1})`).append($(`<img src= "http://openweathermap.org/img/wn/${iconcode.weather[0].icon}.png" 
+            alt="${iconcode.weather[0].description}" style="height: 60px; width: 60px"/>`));           
         $(`.temp:eq(${nb-1})`).text(forecastObj.list[0].main.temp);
         $(`.humi:eq(${nb-1})`).text(forecastObj.list[0].humidity);
     }
@@ -134,7 +136,7 @@ $(document).ready(function() {
     } else hideAll();
        
 // Storing search item
-    $("#add-city").on("click", function(event) {
+    $("#search-city").on("click", function(event) {
         event.preventDefault();
         let city = $("input").val().trim();
         

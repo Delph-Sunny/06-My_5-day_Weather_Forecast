@@ -24,15 +24,21 @@
     </header>
     <div class="container m-0">
         <div class="row">
-            <!-- sidebar navigation -->
+            <!-- left sidebar navigation -->
             <nav class="bg-light col-4 pt-2">
                 <div class="d-flex flex-column px-0 col-12">
                     <h6>Search for a City:</h6>
-                    <form class="form-inline">                
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn bg-primary text-white my-2 my-sm-0" id="add-city" type="submit" ><i class="fas fa-search"></i></button>
+                    <form class="input-group">                
+                        <input class="form-control mr-2 mr-sm-0" type="search" placeholder="Search" aria-label="Search">
+                        <div class="input-group-append">
+                            <button class="btn bg-primary text-white" id="search-city" type="submit" >
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
                     </form>
                 </div>
+                <!-- Add a button to remove history or 1 at the time
+                <button class="btn btn-primary mb-3" id="clear-history" type="button">Clear history</button>-->
                 <form class="search-history d-flex flex-column my-2 px-0 col-12">
                     <!--<div class="city d-block border p-2" data-name="City 1"><span class="city-text">city 1</span></div> -->               
                 </form>
@@ -42,7 +48,7 @@
                 <!-- Current Weather box-->
                 <div class="current card bg-light text-dark p-2 rounded">
                     <div class="card-body">
-                        <h4 id="current-city">City Name (<span id="current-date">Date</span>) <span id="current-icon"></span></h4>
+                        <h3 id="current-city">City Name (<span id="current-date">Date</span>) </h3>
                         <p class="text">Temperature: <span id="current-temp">90</span>F</p>
                         <p>Humidity: <span id="current-humi">41</span>%</p>
                         <p>Wind Speed: <span id="current-wind">4</span>MPH</p>
