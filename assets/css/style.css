@@ -1,3 +1,4 @@
+/*** HISTORY LIST ***/
 .city {
     transition: all 0.5s;
     cursor: pointer;
@@ -27,3 +28,36 @@
     opacity: 1;
     right: 0;
 }
+
+/*** FONT SIZE ***/
+
+
+/*** LOADER ***/
+#loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    margin: -75px 0 0 -75px;
+    border: 1.6rem solid rgba(29, 161, 242, 0.2);
+    border-radius: 50%;
+    border-top: 1.6rem solid #1f39cf;
+    width: 10rem;
+    height: 10rem;
+    animation: spin 0.5s linear infinite;
+}
+
+ /* Safari */
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+  
+@keyframes spin {
+   /* 0% { transform: rotate(0deg); } */
+    to { transform: rotate(360deg); }
+}
+
+  .hidden {
+    display: none;
+  }

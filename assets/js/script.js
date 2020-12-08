@@ -4,6 +4,10 @@ $(document).ready(function() {
     var currentObj, forecastObj = {};
     var hrInterval; 
 
+    $("#details").removeClass("hidden");
+    $("#loader").addClass("hidden");
+
+
     /*** Functions to control the display of weather data ***/
     function showAll() {
         $(".current").show();
@@ -13,7 +17,7 @@ $(document).ready(function() {
     function hideAll() {
         $(".current").hide();
         $(".forecast").hide();
-    }
+    } 
 
     /*** Building the elements for the history ***/
     function cityHistory() {
@@ -23,7 +27,7 @@ $(document).ready(function() {
             var a = $("<div>");
             var name = $("<span>");
             // Adding a class, attribute and text
-            a.addClass("city d-block border p-2");
+            a.addClass("city d-block border p-2 text-truncate");
             a.attr("data-name", cityName[i]);
             name.addClass("city-text")
             name.text(cityName[i]);
@@ -33,12 +37,11 @@ $(document).ready(function() {
         }
     }
 
-
-    /*** Calling API and getting the information */
+    /*** Calling current weather API and getting the information */
     function getQueryURL(city) {
         var queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`; 
    
-        // Gettting the current weather from API
+        // Getting the current weather from API
         $.ajax({
             url: queryURL,
             method: "GET"
@@ -47,10 +50,10 @@ $(document).ready(function() {
            currentObj = response;             
            displayCurrent();
            displayUV();        
-        }); 
-        
-}
+        });      
+    }
 
+    /*** Calling 5-day API and getting the information */
     function getQueryURL5(city) {
         var queryURL5 = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=${apiKey}`;
         
@@ -62,24 +65,31 @@ $(document).ready(function() {
             method: "GET"
         }).then(function(response){
             forecastObj = response; 
-            console.log(forecastObj)        //FOR TESTING
-            hrInterval = 0;           
+            console.log(forecastObj);       // FOR TESTING
+            hrInterval = 0;
+            // Building the 5-day cards           
             for (let i = 1; i < 6; i++) {           
                 displayForecast(i);
-                console.log(i)
             }       
         });
     }
 
     function displayCurrent(){
         var currentDate = moment().format("L");                
-            
-       $("#current-city").text(`${currentObj.name} (${currentDate}) `);
-       $("#current-city").append($(`<img src= "http://openweathermap.org/img/wn/${currentObj.weather[0].icon}@2x.png" 
+        // Create main element
+        $(".current").append(` <div class="card-body">
+        <h3 id="current-city"></h3>
+        <p class="text">Temperature: <span id="current-temp"></span>&#176F</p>
+        <p>Humidity: <span id="current-humi"></span>%</p>
+        <p>Wind Speed: <span id="current-wind"></span>MPH</p>
+        <p>UV Index: <span class="text-white py-1 px-2" id="current-uv"></span></p>
+        </div>`)  
+        $("#current-city").text(`${currentObj.name} (${currentDate}) `);
+        $("#current-city").append($(`<img src= "http://openweathermap.org/img/wn/${currentObj.weather[0].icon}@2x.png" 
             alt="${currentObj.weather[0].description}"/>` ));           
-       $("#current-temp").text(currentObj.main.temp);
-       $("#current-humi").text(currentObj.main.humidity);
-       $("#current-wind").text(currentObj.wind.speed);
+        $("#current-temp").text(currentObj.main.temp);
+        $("#current-humi").text(currentObj.main.humidity);
+        $("#current-wind").text(currentObj.wind.speed);
     }
      
     function displayUV(){
@@ -100,33 +110,43 @@ $(document).ready(function() {
             } else if (uvIndex > 6) {
                 $("#current-uv").removeClass("btn-success btn-warning").addClass("bg-danger");
             } else $("#current-uv").removeClass("btn-success bg-danger").addClass("btn-warning");
-        }); 
-        
-    
-}
-
-    function displayForecast(nb){
-        var date = moment().add(nb, 'day').format("L"); 
-        hrInterval = (nb - 1) *8 + 4;                                 // TO FIX: REVIEW METHOD 
-        // Create main element  
-        $("#5-day").append(`<div class="card bg-primary text-white col-2 mx-2 px-1">
-        <div class="card-body px-0">
-            <h5 class="card-title" index="${nb}"></h5>
-            <p class="icon" index="${nb}"></p>
-            <p class="card-text">Temp: <span class="temp" index="${nb}"></span>&#176F</p>
-            <p class="card-text">Humidity: <span class="humi" index="${nb}"></span>%</p>
-        </div>`)
-        console.log("hrInterval " + hrInterval)
-
-        var iconcode = forecastObj.list[hrInterval]
-        console.log(iconcode)                 //FOR TESTING
-        $(`.card-title:eq(${nb-1})`).text(date);       
-        $(`.icon:eq(${nb-1})`).append($(`<img src= "http://openweathermap.org/img/wn/${iconcode.weather[0].icon}.png" 
-            alt="${iconcode.weather[0].description}" style="height: 60px; width: 60px"/>`));           
-        $(`.temp:eq(${nb-1})`).text(forecastObj.list[0].main.temp);
-        $(`.humi:eq(${nb-1})`).text(forecastObj.list[0].humidity);
+        });    
     }
 
+    function displayForecast(nb){
+        var date = moment().add(nb, 'day').format("L");     // get the date for each day                            
+        // Create main element  
+        $("#5-day").append(`<div class="card bg-primary text-white col-sm-2 mx-2 px-1">
+        <div class="card-body px-0">
+            <h6 class="card-title" index="${nb}"></h6>
+            <p class="icon text-center" index="${nb}"></p>
+            <p class="card-text">Temp: <span class="temp" index="${nb}"></span>&#176F</p>
+            <p class="card-text">Humidity: <span class="humi" index="${nb}"></span>%</p>
+        </div>`);
+         
+        hrInterval = (nb - 1) * 8 + 3;  // Set interval for the list array to get temp at noon
+        
+        // Adding data to forecast elements
+        if (hrInterval < forecastObj.list.length) {     // Safe code to limit to array length
+            var iconcode = forecastObj.list[hrInterval]
+            $(`.card-title:eq(${nb-1})`).text(date);       
+            $(`.icon:eq(${nb-1})`).append($(`<img src= "http://openweathermap.org/img/wn/${iconcode.weather[0].icon}.png" 
+                alt="${iconcode.weather[0].description}" style="height: 60px; width: 60px"/>`));           
+            $(`.temp:eq(${nb-1})`).text(forecastObj.list[0].main.temp);
+            $(`.humi:eq(${nb-1})`).text(forecastObj.list[0].main.humidity);
+        } 
+    }
+
+   // Clearing previously search cities 
+    $("#clear").on("click", function(event) {
+        event.preventDefault();
+        cityName = [];
+        localStorage.clear();
+        /* Disable btn once used */
+        $(this).disabled = "true";
+        $(".search-history").empty()
+    });
+        
 
     if (typeof cityName !== 'undefined' && cityName.length > 0) {
         cityHistory();
@@ -135,7 +155,7 @@ $(document).ready(function() {
         showAll();
     } else hideAll();
        
-// Storing search item
+    // Storing searched item
     $("#search-city").on("click", function(event) {
         event.preventDefault();
         let city = $("input").val().trim();

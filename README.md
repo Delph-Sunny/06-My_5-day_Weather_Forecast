@@ -8,10 +8,10 @@ IN PROGRESS  :construction:
 ## Description 
 The webpage is a __weather forecast__ created using JQuery and an [API]. This app will allow a user to get the current weather and a 5-day forecast for multiple specific cities.  
 The following criteria are required for this app:  
-- [ ] A search for a city, will display the current and future conditions for that city and store the city to the search history.  
-- [ ] The view of the current weather conditions for that city displays the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index.    
+- [X] A search for a city, will display the current and future conditions for that city and store the city to the search history.  
+- [X] The view of the current weather conditions for that city displays the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index.    
 - [X] The UV index view will have a color that indicates whether the conditions are favorable, moderate, or severe.  
-- [ ] The future weather conditions for that city will display a 5-day forecast that with the date, an icon representation of weather conditions, the temperature, and the humidity.  
+- [X] The future weather conditions for that city will display a 5-day forecast that with the date, an icon representation of weather conditions, the temperature, and the humidity.  
 - [X] Clicking on a city in the search history will display current and future conditions for that city again.  
 - [ ] The weather dashboard shows the last searched city forecast.  
 

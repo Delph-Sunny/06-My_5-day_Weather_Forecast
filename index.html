@@ -22,8 +22,9 @@
     <header class="jumbotron bg-dark text-white text-center py-2 mb-0">
       <h1 class="pb-2 font-weight-bold">Weather Dashboard</h1>
     </header>
-    <div class="container m-0">
-        <div class="row">
+        <div class="container m-0">
+        <div id="loader"></div>
+        <div class="row hidden" id="details">
             <!-- left sidebar navigation -->
             <nav class="bg-light col-4 pt-2">
                 <div class="d-flex flex-column px-0 col-12">
@@ -37,31 +38,34 @@
                         </div>
                     </form>
                 </div>
-                <!-- Add a button to remove history or 1 at the time
-                <button class="btn btn-primary mb-3" id="clear-history" type="button">Clear history</button>-->
+                <!-- Add a button to remove history or 1 at the time -->
+                <button class="btn btn-primary text-white text-truncate my-3 " id="clear" type="button">Clear history</button> 
+                <!-- List of previous search results -->
                 <form class="search-history d-flex flex-column my-2 px-0 col-12">
-                    <!--<div class="city d-block border p-2" data-name="City 1"><span class="city-text">city 1</span></div> -->               
+                    <!-- <div class="city d-block border p-2" data-name="City 1"><span class="city-text">city 1</span></div> -->               
                 </form>
             </nav>
         
+            
             <div class="col-8 pt-4 mb-5">
-                <!-- Current Weather box-->
+                <!-- Current Weather box -->
+                
                 <div class="current card bg-light text-dark p-2 rounded">
-                    <div class="card-body">
+                     <!--<div class="card-body">
                         <h3 id="current-city">City Name (<span id="current-date">Date</span>) </h3>
                         <p class="text">Temperature: <span id="current-temp">90</span>F</p>
                         <p>Humidity: <span id="current-humi">41</span>%</p>
                         <p>Wind Speed: <span id="current-wind">4</span>MPH</p>
                         <p>UV Index: <span class="bg-danger text-white py-1 px-2" id="current-uv">9.2</span></p>
-                    </div>
+                    </div> -->
                 </div>
-                <!-- Forecast Weather box-->
+                <!-- Forecast Weather box -->
                 <div class="forecast mt-2">                
                     <h4>5-Day Forcast:</h2>
                     <div class="row px-2" id="5-day">                
- <!--                   <div class="card bg-primary text-white col-2 mx-2 px-1">
+ <!--                   <div class="card bg-primary text-white col-sm-2 mx-2 px-1">
                             <div class="card-body px-0 ">
-                                <h5 class="card-title" index="1">Date+1</h5>
+                                <h6 class="card-title" index="1">Date+1</h6>
                                 <p class="icon" index="1"></p>
                                 <p class="card-text">Temp: <span class="temp" index="1">90</span>F</p>
                                 <p class="card-text">Humidity: <span class="humi" index="1">41</span>%</p>
