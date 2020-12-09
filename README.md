@@ -1,4 +1,5 @@
 # 06-My_Five-day_Weather_Forecast
+:partly_sunny:
 ---
 
 ## Description 
@@ -18,10 +19,10 @@ Finally a loader was added when the page is loaded in case of a slow answer from
 ## Installation
 
 Click on this [link] or download the entire repository, unzip the files and double-click on `index.html` to see the page in an internet browser.  
-Enter a new city name in the search field or click on a city name in the search history to display the current weather. Select the 5-day forecast to see the future weather.
+Enter a new city name in the search field or click on a city name in the search history to display the current weather and its forecast for the next 5 days. 
 
 
-## Image of the app
+## Image of the app :mag:
 
 ![My_5-day_weather_forecast](./assets/images/snippet.PNG)
 
