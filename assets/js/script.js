@@ -149,7 +149,7 @@ $(document).ready(function() {
         $(".search-history").empty()
     });
         
-
+    // Look for history and display last
     if (typeof cityName !== 'undefined' && cityName.length > 0) {
         cityHistory();
         getQueryURL(cityName[cityName.length-1]);
@@ -161,9 +161,7 @@ $(document).ready(function() {
     $("#search-city").on("click", function(event) {
         event.preventDefault();
         let userCity = $("input").val().trim();
-        let checkCode = 0;
         
-      //  console.log(checkCode);  // FOR TESTING
         if (userCity === "") { 
             $('#error-modal').modal("toggle");  
         } else {
@@ -172,23 +170,17 @@ $(document).ready(function() {
             $.ajax({
                 url: queryURL5,
                 method: "GET"
-            }).then(function(response){
-                checkCode = response.cod; 
-                console.log(checkCode);   // FOR TESTING
-                console.log(response);
-              var city = response.city.name;
-                console.log(city); 
-                if (checkCode == 200) {   // TO FIX: NOT WORKING + Check for duplicates
-                    cityName.push(city);                    // TO FIX: Push correct spelling only
+                }).then(function(response){
+                    var city = response.city.name;
+                    cityName.push(city);                    // Push correct spelling only
                     localStorage.setItem('cityNameList', JSON.stringify(cityName));
                     getQueryURL(city);
                     getQueryURL5(city); 
                     showAll();
                     // calling function to build element for each city
                     cityHistory();
-                    $("input").val("");
-                } else { $('#error-modal').modal("toggle");  }   
-            });
+                    $("input").val("");  
+                }).catch(function() { $('#error-modal').modal("toggle");  } )  // Check for API answer when wrong spelling
         };                                           
     });
 
@@ -196,8 +188,8 @@ $(document).ready(function() {
  // when clicking on a city in the history
     $(document).on("click", ".city", function(event) {
         event.preventDefault();
-        let city = $(this).data('name');        
-        console.log(city)                   //FOR TESTING
+        let city = $(this).data('name');
+
         getQueryURL(city);
         getQueryURL5(city);                      
         showAll();
