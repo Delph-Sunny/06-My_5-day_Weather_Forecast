@@ -24,7 +24,7 @@
         <h1 class="pb-2 font-weight-bold">Weather Dashboard</h1>
     </header>
     <div class="container m-0">
-        <div id="loader"></div> <!-- loading spin if slow api answer -->
+        <div id="loader"></div> <!-- Loading spin if slow api answer -->
         <div class="row hidden" id="details">
             <!-- left sidebar navigation -->
             <nav class="bg-light col-4 pt-2">
@@ -39,66 +39,52 @@
                         </div>
                     </form>
                 </div>
-                <!-- Add a button to remove history or 1 at the time -->
+                <!-- Button to remove history or 1 at the time -->
                 <button class="btn btn-primary text-white text-truncate my-3 " id="clear" type="button">Clear
                     history</button>
                 <!-- List of previous search results -->
                 <form class="search-history d-flex flex-column my-2 px-0 col-12">
-                    <!-- <div class="city d-block border p-2" data-name="City 1"><span class="city-text">city 1</span></div> -->
+                    <!-- Previous searched cities HERE -->
                 </form>
             </nav>
 
             <div class="col-8 pt-4 mb-5">
                 <!-- Current Weather box -->
                 <div class="current card bg-light text-dark p-2 rounded">
-                    <!--<div class="card-body">
-                        <h3 id="current-city">City Name (<span id="current-date">Date</span>) </h3>
-                        <p class="text">Temperature: <span id="current-temp">90</span>F</p>
-                        <p>Humidity: <span id="current-humi">41</span>%</p>
-                        <p>Wind Speed: <span id="current-wind">4</span>MPH</p>
-                        <p>UV Index: <span class="bg-danger text-white py-1 px-2" id="current-uv">9.2</span></p>
-                    </div> -->
+                    <!-- Current weather elements HERE -->
                 </div>
                 <!-- Forecast Weather box -->
-                <h4>5-Day Forcast:</h4>
                 <div class="forecast mt-2">
-                    
+                    <h4>5-Day Forcast:</h4>
                     <div class="row px-2" id="5-day">
-                        <!-- <div class="card bg-primary text-white col-sm-2 mx-2 px-1">
-                                <div class="card-body px-0 ">
-                                    <h6 class="card-title" index="1">Date+1</h6>
-                                    <p class="icon" index="1"></p>
-                                    <p class="card-text">Temp: <span class="temp" index="1">90</span>F</p>
-                                    <p class="card-text">Humidity: <span class="humi" index="1">41</span>%</p>
-                                </div>                                            
-                            </div> -->
+                        <!-- Forecast weather elements HERE -->
                     </div>
                 </div>
             </div>
         </div>
-        <div>
-            <!-- modal for error messages-->
-            <div class="modal fade bd-example-modal-sm" id="error-modal" tabindex="-1" role="dialog"
-                aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-m">
-                    <div class="modal-content p-2">
-                        <div class="modal-header bg-danger text-white">
-                            <h5 class="modal-title"><i class="fas fa-exclamation-triangle"></i> City not found</h5>
-                            <button type="button" class="close  text-white" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">Please check your spelling or pick another city nearby.</div>
-                    </div>
+    </div>
+    <!-- modal for error messages-->
+    <div class="modal fade bd-example-modal-sm" id="error-modal" tabindex="-1" role="dialog"
+        aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-m">
+            <div class="modal-content p-2">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title"><i class="fas fa-exclamation-triangle"></i> City not found</h5>
+                    <button type="button" class="close  text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
+                <div class="modal-body">Please check your spelling or pick another city nearby.</div>
             </div>
+        </div>
+    </div>
 
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-                crossorigin="anonymous"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-            <script src="./assets/js/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="./assets/js/script.js"></script>
 </body>
 
 </html>

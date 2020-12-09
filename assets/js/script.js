@@ -3,7 +3,6 @@ $(document).ready(function () {
     var cityName = JSON.parse(localStorage.getItem("cityNameList")) || [];
     var currentObj, forecastObj = {};
     var hrInterval;
-    var city;
 
     
     $("#details").removeClass("hidden");
@@ -57,13 +56,13 @@ $(document).ready(function () {
 
     /*** Calling 5-day API and getting the information ***/
     function getQueryURL5(city) {
-        var queryURL5 = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=${apiKey}`;
+        var queryURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=${apiKey}`;
 
         $("#5-day").empty(); // Empty previous previsions
 
         // Getting the forecast weather from API
         $.ajax({
-            url: queryURL5,
+            url: queryURL,
             method: "GET"
         }).then(function (response) {
             forecastObj = response;
@@ -96,11 +95,11 @@ $(document).ready(function () {
 
     /*** Populate UX data and color background ***/
     function displayUV() {
-        var queryURLuv = `https://api.openweathermap.org/data/2.5/uvi?lat=${currentObj.coord.lat}&lon=${currentObj.coord.lon}&appid=${apiKey}`;
+        var queryURL = `https://api.openweathermap.org/data/2.5/uvi?lat=${currentObj.coord.lat}&lon=${currentObj.coord.lon}&appid=${apiKey}`;
         var uvIndex;
         // Getting the UV index from API
         $.ajax({
-            url: queryURLuv,
+            url: queryURL,
             method: "GET"
         }).then(function (response) {
             uvIndex = response.value
@@ -167,9 +166,9 @@ $(document).ready(function () {
             $('#error-modal').modal("toggle");
         } else {
             //Check for spelling and return error modal if bad
-            var queryURL5 = `https://api.openweathermap.org/data/2.5/forecast?q=${userCity}&units=imperial&appid=${apiKey}`;
+            var queryURL = `https://api.openweathermap.org/data/2.5/forecast?q=${userCity}&units=imperial&appid=${apiKey}`;
             $.ajax({
-                url: queryURL5,
+                url: queryURL,
                 method: "GET"
             }).then(function (response) {
                 var city = response.city.name;
