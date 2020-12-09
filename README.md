@@ -13,7 +13,7 @@ The following criteria are required for this app:
 - [X] The weather dashboard shows the last searched city forecast.  
   
 A button to clear the search history was added. The user input is also check for valid entry. Unvalid searches will not be kept. Moreover only the weather of valid cities will be displayed.  
-Finally a loader was added when the page is loaded in case of a slow answer from the API.  
+Finally a loader was added in case of a slow answer from the API.  
 
 
 ## Installation
