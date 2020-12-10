@@ -118,8 +118,8 @@ $(document).ready(function () {
     function displayForecast(nb) {
         var date = moment().add(nb, 'day').format("L");     // get the date for each day                            
         // Create main element  
-        $("#5-day").append(`<div class="card bg-primary text-white col-xs-2 ml-2 mb-2 px-1">
-        <div class="card-body px-0">
+        $("#5-day").append(`<div class="card bg-primary text-white col-xs-2 ml-2 mb-2">
+        <div class="card-body px-2">
             <h6 class="card-title" index="${nb}"></h6>
             <p class="icon text-center" index="${nb}"></p>
             <p class="card-text">Temp: <span class="temp" index="${nb}"></span>&#176F</p>
@@ -130,12 +130,12 @@ $(document).ready(function () {
 
         // Adding data to forecast elements
         if (hrInterval < forecastObj.list.length) {     // Safe code to limit to array length
-            var iconcode = forecastObj.list[hrInterval]
+            let indexedObj = forecastObj.list[hrInterval]
             $(`.card-title:eq(${nb - 1})`).text(date);
-            $(`.icon:eq(${nb - 1})`).append($(`<img src= "http://openweathermap.org/img/wn/${iconcode.weather[0].icon}.png" 
-                alt="${iconcode.weather[0].description}" style="height: 60px; width: 60px"/>`));
-            $(`.temp:eq(${nb - 1})`).text(forecastObj.list[0].main.temp);
-            $(`.humi:eq(${nb - 1})`).text(forecastObj.list[0].main.humidity);
+            $(`.icon:eq(${nb - 1})`).append($(`<img src= "http://openweathermap.org/img/wn/${indexedObj.weather[0].icon}.png" 
+                alt="${indexedObj.weather[0].description}" style="height: 60px; width: 60px"/>`));
+            $(`.temp:eq(${nb - 1})`).text(indexedObj.main.temp);
+            $(`.humi:eq(${nb - 1})`).text(indexedObj.main.humidity);
         }
     }
 
