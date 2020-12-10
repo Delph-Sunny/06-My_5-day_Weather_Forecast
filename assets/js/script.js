@@ -81,7 +81,7 @@ $(document).ready(function () {
         <p>Humidity: <span id="current-humi"></span>%</p>
         <p>Wind Speed: <span id="current-wind"></span>MPH</p>
         <p>UV Index: <span class="text-white py-1 px-2" id="current-uv"></span></p>
-        </article></div>`)
+        </div></article>`)
         $("#current-city").text(`${currentObj.name} (${currentDate}) `);
         $("#current-city").append($(`<img src= "http://openweathermap.org/img/wn/${currentObj.weather[0].icon}@2x.png" 
             alt="${currentObj.weather[0].description}"/>`));
@@ -147,7 +147,7 @@ $(document).ready(function () {
             <p class="icon text-center"></p>
             <p class="card-text">Temp: <span class="temp"></span>&#176F</p>
             <p class="card-text">Humidity: <span class="humi"></span>%</p>
-            </article></div>`);
+            </div></article>`);
         // Populating with data
         let listObj = forecastObj.daily[nb];
         $(`.card-title:eq(${nb - 1})`).text(date);
