@@ -76,7 +76,17 @@ $(document).ready(function () {
 
     /*** Populate current weather ***/
     function displayCurrent() {
-        var currentDate = moment().format("L");
+        // Calculate the current time locally by converting UTC time and using the timezone
+        let unixTimestamp = currentObj.dt + currentObj.timezone;
+        let milliseconds = unixTimestamp * 1000;  // converte to millisecond
+        let dateObject = new Date(milliseconds);
+        let utc = dateObject.toUTCString("en-US"); // Wed, 09 Dec 22:42:01 GMT
+        // converting format to MM/DD/YYYY
+        let month = (new Date(utc).getMonth() + 1);
+        let day = JSON.stringify(utc).slice(6,8);
+        let year = new Date(utc).getFullYear();
+        let currentDate = month + "/" +  day + "/" + year;
+
         // Create main element
         $(".current").append(` <div class="card-body">
         <h3 id="current-city"></h3>
@@ -85,6 +95,7 @@ $(document).ready(function () {
         <p>Wind Speed: <span id="current-wind"></span>MPH</p>
         <p>UV Index: <span class="text-white py-1 px-2" id="current-uv"></span></p>
         </div>`)
+        // Populate with data
         $("#current-city").text(`${currentObj.name} (${currentDate}) `);
         $("#current-city").append($(`<img src= "http://openweathermap.org/img/wn/${currentObj.weather[0].icon}@2x.png" 
             alt="${currentObj.weather[0].description}"/>`));
@@ -116,7 +127,7 @@ $(document).ready(function () {
 
     /*** Populate 5-day weather ***/
     function displayForecast(nb) {
-        var date = moment().add(nb, 'day').format("L");     // get the date for each day                            
+        var date = moment().add(nb, 'day').format("L");     // get the date for each day - TO DO: use timezone and UTC ofr international                             
          
         // Calculate interval offset for noon weather depending on timezone
         let timeZonehr = (forecastObj.city.timezone) / 3600;

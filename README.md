@@ -3,7 +3,7 @@
 ---
 
 ## Description 
-The webpage is a __weather forecast__ created using Bootstrap, JQuery and an [API]. This app will allow a user to get the current weather and a 5-day forecast for multiple specific cities.  
+The webpage is a __weather forecast__ created using Bootstrap, JQuery and an [API]. This app will allow a user to get the current weather and a 5-day forecast for multiple specific cities.   
 The following criteria are required for this app:  
 - [X] A search for a city, will display the current and future conditions for that city and store the city to the search history.  
 - [X] The view of the current weather conditions for that city displays the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index.    
@@ -15,6 +15,8 @@ The following criteria are required for this app:
 A button to clear the search history was added. The user input is also check for valid entry. Unvalid searches will not be kept. Moreover only the weather of valid cities will be displayed.  
 Finally a loader was added in case of a slow answer from the API.  
 
+## Special notes
+The openweathermap API uses UTC times and therefore day/time needs to be reajusted to the local timezone of the selected country. This was done with the current conditions but not with the 5-day forecast.
 
 ## Installation
 
