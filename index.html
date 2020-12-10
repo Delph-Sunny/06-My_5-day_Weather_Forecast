@@ -23,11 +23,11 @@
     <header class="jumbotron bg-dark text-white text-center py-2 mb-0">
         <h1 class="pb-2 font-weight-bold">Weather Dashboard</h1>
     </header>
-    <div class="container m-0">
+    <main class="container m-0">
         <div id="loader"></div> <!-- Loading spin if slow api answer -->
         <div class="row hidden" id="details">
             <!-- left sidebar navigation -->
-            <nav class="bg-light col-4 pt-2">
+            <aside class="bg-light col-4 pt-2">
                 <div class="d-flex flex-column px-0 col-12">
                     <h6>Search for a City:</h6>
                     <form class="input-group">
@@ -46,23 +46,23 @@
                 <form class="search-history d-flex flex-column my-2 px-0 col-12">
                     <!-- Previous searched cities HERE -->
                 </form>
-            </nav>
+            </aside>
 
             <div class="col-8 pt-4 mb-5">
                 <!-- Current Weather box -->
-                <div class="current card">
+                <section class="current card">
                     <!-- Current weather elements HERE -->
-                </div>
+                </section>
                 <!-- Forecast Weather box -->
-                <div class="forecast mt-2">
+                <section class="forecast mt-2">
                     <h4>5-Day Forcast:</h4>
                     <div class="row px-2" id="5-day">
                         <!-- Forecast weather elements HERE -->
                     </div>
-                </div>
+                </section>
             </div>
         </div>
-    </div>
+    </main>
     <!-- modal for error messages-->
     <div class="modal fade bd-example-modal-sm" id="error-modal" tabindex="-1" role="dialog"
         aria-labelledby="mySmallModalLabel" aria-hidden="true">

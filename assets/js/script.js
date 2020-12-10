@@ -75,13 +75,13 @@ $(document).ready(function () {
         let currentDate = month + "/" + day + "/" + year;
 
         // Create main element
-        $(".current").append(`<div class="card bg-light text-dark rounded"><div class="card-body">
+        $(".current").append(`<article class="card bg-light text-dark rounded"><div class="card-body">
         <h3 id="current-city"></h3>
         <p class="text">Temperature: <span id="current-temp"></span>&#176F</p>
         <p>Humidity: <span id="current-humi"></span>%</p>
         <p>Wind Speed: <span id="current-wind"></span>MPH</p>
         <p>UV Index: <span class="text-white py-1 px-2" id="current-uv"></span></p>
-        </div></div>`)
+        </article></div>`)
         $("#current-city").text(`${currentObj.name} (${currentDate}) `);
         $("#current-city").append($(`<img src= "http://openweathermap.org/img/wn/${currentObj.weather[0].icon}@2x.png" 
             alt="${currentObj.weather[0].description}"/>`));
@@ -141,13 +141,13 @@ $(document).ready(function () {
     /*** Populate 5-day weather ***/
     function displayForecast(date, nb) {
         // Create main element  
-        $("#5-day").append(`<div class="col-xs-2 m-2"><div class="card bg-primary text-white">
+        $("#5-day").append(`<article class="col-xs-2 m-2"><div class="card bg-primary text-white">
             <div class="card-body">
             <h6 class="card-title"></h6>
             <p class="icon text-center"></p>
             <p class="card-text">Temp: <span class="temp"></span>&#176F</p>
             <p class="card-text">Humidity: <span class="humi"></span>%</p>
-            </div></div>`);
+            </article></div>`);
         // Populating with data
         let listObj = forecastObj.daily[nb];
         $(`.card-title:eq(${nb - 1})`).text(date);
