@@ -75,13 +75,13 @@ $(document).ready(function () {
         let currentDate = month + "/" + day + "/" + year;
 
         // Create main element
-        $(".current").append(`<div class="col-12"><div class="card bg-light text-dark rounded"><div class="card-body">
+        $(".current").append(`<div class="card bg-light text-dark rounded"><div class="card-body">
         <h3 id="current-city"></h3>
         <p class="text">Temperature: <span id="current-temp"></span>&#176F</p>
         <p>Humidity: <span id="current-humi"></span>%</p>
         <p>Wind Speed: <span id="current-wind"></span>MPH</p>
         <p>UV Index: <span class="text-white py-1 px-2" id="current-uv"></span></p>
-        </div></div></div>`)
+        </div></div>`)
         $("#current-city").text(`${currentObj.name} (${currentDate}) `);
         $("#current-city").append($(`<img src= "http://openweathermap.org/img/wn/${currentObj.weather[0].icon}@2x.png" 
             alt="${currentObj.weather[0].description}"/>`));
