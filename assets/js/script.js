@@ -2,7 +2,7 @@ $(document).ready(function () {
     var apiKey = "de59edcad53b52bdb1763734853a531f";
     var cityName = JSON.parse(localStorage.getItem("cityNameList")) || [];
     var currentObj, forecastObj = {};
-    var hrInterval;
+    var arrayIndex;
 
     
     $("#details").removeClass("hidden");
@@ -66,7 +66,7 @@ $(document).ready(function () {
             method: "GET"
         }).then(function (response) {
             forecastObj = response;
-            hrInterval = 0;
+            arrayIndex = 0;
             // Building the 5-day cards           
             for (let i = 1; i < 6; i++) {
                 displayForecast(i);
@@ -117,26 +117,34 @@ $(document).ready(function () {
     /*** Populate 5-day weather ***/
     function displayForecast(nb) {
         var date = moment().add(nb, 'day').format("L");     // get the date for each day                            
-        // Create main element  
-        $("#5-day").append(`<div class="card bg-primary text-white col-xs-2 ml-2 mb-2">
-        <div class="card-body px-2">
-            <h6 class="card-title" index="${nb}"></h6>
-            <p class="icon text-center" index="${nb}"></p>
-            <p class="card-text">Temp: <span class="temp" index="${nb}"></span>&#176F</p>
-            <p class="card-text">Humidity: <span class="humi" index="${nb}"></span>%</p>
-        </div>`);
-
-        hrInterval = (nb - 1) * 8 + 3;  // Set interval for the list array to get temp at noon
+         
+        // Calculate interval offset for noon weather depending on timezone
+        let timeZonehr = (forecastObj.city.timezone) / 3600;
+        let intervalOffset= Math.round(timeZonehr/3);
+        
+        arrayIndex = ((nb - 1) * 8 ) + 3 - intervalOffset;  // Set interval for the list array to get temp at noon
+        
+        if (arrayIndex < 0 ) { arrayIndex = 0 };  /* Preventing the "Auckland, NZ" issue with 5-day API. *
+                                                   * Need 16-days API but it's not free.                 */
 
         // Adding data to forecast elements
-        if (hrInterval < forecastObj.list.length) {     // Safe code to limit to array length
-            let indexedObj = forecastObj.list[hrInterval]
-            $(`.card-title:eq(${nb - 1})`).text(date);
-            $(`.icon:eq(${nb - 1})`).append($(`<img src= "http://openweathermap.org/img/wn/${indexedObj.weather[0].icon}.png" 
-                alt="${indexedObj.weather[0].description}" style="height: 60px; width: 60px"/>`));
-            $(`.temp:eq(${nb - 1})`).text(indexedObj.main.temp);
-            $(`.humi:eq(${nb - 1})`).text(indexedObj.main.humidity);
-        }
+        if (arrayIndex < forecastObj.list.length) {     // Safe code to limit to array length
+           // Create main element
+            $("#5-day").append(`<div class="card bg-primary text-white col-xs-2 ml-2 mb-2">
+            <div class="card-body px-2">
+                <h6 class="card-title" index="${nb}"></h6>
+                <p class="icon text-center" index="${nb}"></p>
+                <p class="card-text">Temp: <span class="temp" index="${nb}"></span>&#176F</p>
+                <p class="card-text">Humidity: <span class="humi" index="${nb}"></span>%</p>
+            </div>`);
+           // Populating with data
+           let listObj = forecastObj.list[arrayIndex];            
+           $(`.card-title:eq(${nb - 1})`).text(date);
+           $(`.icon:eq(${nb - 1})`).append($(`<img src= "http://openweathermap.org/img/wn/${listObj.weather[0].icon}.png" 
+               alt="${listObj.weather[0].description}" style="height: 60px; width: 60px"/>`));
+           $(`.temp:eq(${nb - 1})`).text(listObj.main.temp);
+           $(`.humi:eq(${nb - 1})`).text(listObj.main.humidity);
+        } 
     }
 
     // Clearing previously search cities 
